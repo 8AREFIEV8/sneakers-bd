@@ -1,17 +1,12 @@
 const express = require('express');
 
 const app = express();
+app.use(express.json());
+app.use(express.urlencoded( {extended: true}));
 
-app.get('/sneakers', (req, res) => {
-    console.log(req)
-    res.json('GET ALL SNEAKERS');
-});
+const sneakerRouter = require('./routes/sneaker.router');
 
-
-app.post('/sneakers', (req, res) => {
-    console.log(req)
-    res.json('CREATE SNEAKER');
-});
+app.use('/sneakers', sneakerRouter);
 
 
 
