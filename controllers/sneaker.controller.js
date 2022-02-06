@@ -1,23 +1,38 @@
-const db = require('../dataBase/sneakers');
+const Sneaker = require('../dataBase/Sneaker');
 
 module.exports = {
-    getSneakers:  (req, res) => {
-        res.json(db);
+    getSneakers: async  (req, res) => {
+        try {
+            const sneakers = await Sneaker.find();
+
+            res.json(sneakers);
+
+        }catch (e) {
+            res.json(e)
+
+        }
+
+
+
     },
 
-    getSneakerById: (req, res) => {
+    getSneakerById: async (req, res) => {
         const {sneaker_id} = req.params;
-        const sneaker = db[sneaker_id];
+        const sneaker = await Sneaker.findById(sneaker_id);
 
         res.json({sneaker})
     },
 
-    createSneaker: (req, res) => {
-        console.log(req.body);
+    createSneaker: async (req, res) => {
+        try {
+            const newSneaker = await Sneaker.create(req.body);
 
-        db.push({...req.body, id: db.length + 1})
+            res.json(newSneaker);
+        } catch (e) {
+            res.json(e);
+        }
 
-        res.json(db);
+
     },
 
     updateSneaker: (req, res) => {
