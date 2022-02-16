@@ -2,7 +2,7 @@ const {Schema, model} = require('mongoose');
 
 const sneakerSchema = new Schema({
 
-    name: {
+    model: {
         type: String,
         required: true,
         trim: true
